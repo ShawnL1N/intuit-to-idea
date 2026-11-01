@@ -1,61 +1,61 @@
-# 机制查重指南
+# Mechanism-level related-work checks
 
-目标是找到最接近工作的真实重合与差异，帮助决定下一步；不是为已选方案寻找“没有人做过”的证明。
+Find the real overlap and differences with the closest work to inform the next decision. Do not search merely to prove that a preferred proposal has never been attempted.
 
-## 先写出可检索的机制
+## Make the mechanism searchable
 
-将用户当前想法压成一到三句：
+Summarize the current idea in one to three sentences:
 
-> 在什么情境下，依据什么可获得的信息，改变什么表示或操作，预期改善什么结果。
+> In which situation, using what available information, does the method change which representation or operation, with what expected benefit?
 
-把场景词、机制词、效果词分开，补充常见同义词和跨领域术语。既查同领域直接近邻，也查相邻领域的同构机制。用户限定领域时，明确区分直接对照与跨领域先例，不把任务范围悄悄扩展。
+Separate situation, mechanism, and outcome terms. Add common synonyms and terminology from neighboring fields. Search direct counterparts and analogous mechanisms elsewhere. Respect the user's domain boundary: label cross-domain precedents separately rather than quietly expanding the task.
 
-## 阅读与比较
+## Read and compare
 
-优先原始论文、作者项目页和官方实现。摘要用于筛选；关于机制差异的关键判断应核对方法或实现，不能只比较标题。
+Prefer primary papers, author project pages, and official implementations. Use abstracts for screening. Verify consequential mechanism differences in methods or implementation rather than comparing titles alone.
 
-对足以改变结论的近邻，记录：
+For a close paper that could change the conclusion, record relevant dimensions:
 
-| 维度 | 要核对的内容 |
+| Dimension | What to verify |
 |---|---|
-| 任务与目标 | 预测、控制、生成、识别或其他；实际优化什么 |
-| 表示 | 哪些信息被保留、压缩、分解或丢弃 |
-| 操作 | 选择、变换、更新、检索、重算等实际步骤 |
-| 决策依据 | 依赖什么信息；这些信息在使用时能否获得 |
-| 时间过程 | 一次性处理还是持续调整；如何初始化与结束 |
-| 计算与评价 | 省掉了哪一部分；是否计入新增开销；如何测量效果 |
+| Task and objective | Prediction, control, generation, recognition, or another task; what is actually optimized |
+| Representation | What information is retained, compressed, separated, or discarded |
+| Operation | Actual selection, transformation, updating, retrieval, recomputation, or other steps |
+| Decision inputs | Required information and whether it is available at decision time |
+| Temporal process | One-time processing or ongoing adaptation; initialization and termination |
+| Computation and evaluation | What work is avoided, whether added overhead is counted, and how benefits are measured |
 
-只展示与本次区别相关的维度，不把表格填满当作研究质量。
+Show only dimensions relevant to the distinction. Filling every table cell is not a measure of research quality.
 
-## 避免过度去重与无价值收窄
+## Avoid overzealous novelty filtering and meaningless narrowing
 
-先保留当前研究问题和预期价值，再判断近邻到底覆盖了其中哪部分。目标相同、术语相近或采用共同模块，只能构成进一步核查的理由，不能单独构成否定整个方向的证据。
+Preserve the research question and its intended value while checking which parts related work covers. Shared goals, similar terms, and common modules justify investigation; they cannot alone rule out a direction.
 
-当一篇论文可能决定方向去留时，先用自己的话说明它的输入、关键操作、输出、前提和实际验证范围，再逐项映射到当前机制。核对不清时标为待核查；不要凭摘要推断它已经解决了未展示的问题，也不要忽略它已明确实现的能力。
+If a paper could determine whether to continue, explain its inputs, key operations, outputs, assumptions, and evaluation scope in your own words, then map them to the current mechanism. Mark unresolved details as unverified. Do not infer unshown capabilities from an abstract or overlook capabilities it explicitly demonstrates.
 
-查到相关工作后优先区分：重要问题已经被充分解决；已有一种解法但仍有真实限制；仅共享目标而机制不同；目前信息不足。只有第一种且当前主张确实被覆盖时，才有依据放弃相应创新主张。其余情况应继续判断具体差异和价值，不能直接宣布整个方向不可做。
+Distinguish four cases: the important problem is already adequately solved; an existing solution has real limitations; the work shares a goal but uses a different mechanism; or information is insufficient. Dropping a novelty claim requires evidence that prior work covers that claim. Similarity alone does not justify abandoning the entire direction.
 
-不要每遇到近邻就加一个特殊条件。若建议更换对象、限制任务或缩短时间范围，说明该变化本身解决什么真实需求或揭示什么规律。找不到这一理由时，撤回人为限制，回到原问题。具体小问题可以很有价值，判断依据是其意义，而不是覆盖面大小或搜索结果数量。
+Do not add a special condition for every related paper. When proposing a different object, restricted task, or shorter time window, explain the independent practical need or scientific insight. Without that rationale, withdraw the artificial restriction and return to the original problem. A narrow question can be valuable; significance matters more than breadth or search-result counts.
 
-新颖性与重要性分开记录：一项差异为什么成立，以及这项差异成立后为什么值得关心。不得用“没有完全匹配的论文”代替后一项，也不能为了保住研究价值隐瞒已存在的相同方法。
+Record novelty and importance separately: why the difference exists, and why it matters. "No exact paper found" cannot establish importance. Do not conceal a matching method to preserve a claim of value.
 
-## 结论的强度
+## Match the conclusion to the evidence
 
-根据实际证据选择表述，并说明理由：
+Select a description and explain why:
 
-- **直接重合**：主要表示、操作与适用条件已被已有方法覆盖。
-- **已有机制的适配或扩展**：改变了对象、数据、范围或部分条件；价值需由实际问题和结果支持。
-- **存在具体区别**：指出哪一步操作、哪种信息或哪项假设不同，而不是只给新名称。
-- **信息不足**：方法细节不可获得或尚未核查，暂不下结论。
+- **Direct overlap:** Prior work covers the principal representation, operations, and relevant conditions.
+- **Adaptation or extension:** The object, data, scope, or some conditions change; value needs support from the problem and results.
+- **Concrete difference:** Identify a different operation, information source, or assumption, not merely a new name.
+- **Insufficient information:** Necessary details are unavailable or unverified; defer the judgment.
 
-单独说明“存在区别”和“区别值得研究”。一个新模块可能没有必要，一个简单改动也可能解决重要限制。不要强行要求复杂算法或理论证明才能构成研究价值。
+Separate "there is a difference" from "the difference is worth studying." A new module may be unnecessary; a simple change may remove an important limitation. Do not require algorithmic complexity or a theoretical proof as a universal condition for research value.
 
-“未发现完全一致的方法”需附检索范围、日期和未覆盖部分，不等价于首次提出。不要给没有依据的新颖性百分数或论文录用概率。
+When reporting that no exact match was found, state search scope, date, and material gaps. This is not proof of priority. Do not invent novelty percentages or acceptance probabilities.
 
-## 输出与后续
+## Output and next step
 
-通常输出最接近的少数工作、原始来源链接、重合点、具体差异与一个优先验证点。明确哪些论文只读了摘要，哪些核对了方法，哪些运行过实现。
+Usually report a few closest works, primary-source links, overlaps, concrete differences, and one priority validation question. State whether you read only an abstract, checked the method, or ran an implementation.
 
-如果对比基于你对论文的解释，标注为解释；不可用来源、二手摘要和未核实题名不能冒充已确认事实。不得把其他论文的性能数字写成当前方案的预计效果。
+Label interpretations as interpretations. Inaccessible sources, secondary summaries, and unverified titles cannot serve as confirmed facts. Never present another paper's performance as the current proposal's expected result.
 
-没有联网能力时，可以整理已有来源和检索计划，但应明确未完成实时查重。发现直接重合时，允许结束或转向，不通过不断改名、叠模块或更换应用来逃避结论。
+Without browsing, organize available sources and a search plan, but say that a live check is incomplete. If direct overlap is established, allow the direction to end or change. Do not evade the conclusion by repeatedly renaming, adding modules, or switching applications.

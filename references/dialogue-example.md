@@ -1,77 +1,77 @@
-# 对话示例：从大方向引出直觉
+# Dialogue example: eliciting intuition from a broad direction
 
-以下是为展示对话方式独立编写的虚构示例，不是用户原始对话，也不声称案例方法具有研究新颖性。它涉及代码分析，但技能不限定于该领域。
+This fictional example was written to illustrate the conversation style. It is not a private transcript or a claim that the illustrated method is novel. It concerns program analysis; the skill is not limited to that field.
 
-## 用户只给方向，AI 主动开场
+## The user gives a direction; AI opens the conversation
 
-**用户**：我想研究程序分析工具，但还没有具体想法。你来问我，让我凭直觉回答。
+**User:** I want to research program analysis tools, but I don't have a specific idea. Ask me questions and let me answer intuitively.
 
-**助手**：先从使用场景想：修改代码后，你更在意尽快知道有没有引入问题，还是得到更完整的错误解释？也可以从别的困扰开始。
+**Assistant:** Let's start with using the tool. After editing code, do you care more about finding out quickly whether you introduced a problem, or getting a fuller explanation of errors? We can also start with a different frustration.
 
-**用户**：先得到反馈。我觉得只改几行代码，不该每次都等那么久。
+**User:** Quick feedback. I don't think changing a few lines should always mean waiting so long.
 
-用户并没有预先准备机制。第一个问题帮助他表达关注点和朴素判断；若他选择错误解释，后续应转向解释需要什么信息，而不是仍然引导他做增量计算。
+The user did not arrive with a mechanism. The first question helped surface a concern and an intuitive judgment. If they chose error explanations, the next question should explore what makes an explanation useful, rather than continuing to steer toward incremental computation.
 
-## 顺着回答提取直觉
+## Follow the answer to identify the intuition
 
-**助手**：你的直觉是，小改动通常只影响一部分已有分析结果。这里关键在于“影响”怎么判断。你觉得应该只重算被编辑的文件，还是也包含依赖它的文件？
+**Assistant:** Your intuition is that a small edit usually affects only part of the analysis. The key is how we determine its impact. Should we reanalyze only edited files, or also files that depend on them?
 
-**用户**：也要看依赖，但不一定所有依赖都受影响。
+**User:** Dependencies too, but not all of them are affected.
 
-**助手**：明白，你想区分依赖是否真的失效。比如只是改函数里的局部变量名，调用方可能不受影响；如果返回类型变了，调用方就可能需要重算。你觉得先区分修改类型，能不能帮助判断影响范围？
+**Assistant:** You want to distinguish whether a dependency actually becomes invalid. Renaming a local variable might leave callers unaffected, while changing a function's return type could require reanalysis. Do you think classifying the change first could help determine its impact?
 
-这是让用户用实例作出判断，而不是要求他先选择静态分析算法。如果用户一开始已经提出具体直觉，可以直接进入这一阶段。实际部署还需要核查语言语义和工具支持，示例本身不证明判断总成立。
+The user judges concrete cases instead of selecting a static-analysis algorithm upfront. If they already have an intuition, begin at this stage. Real implementation still requires checking language semantics and tool support; the example does not establish that these judgments always hold.
 
-## 用户不知道时，提供可比较的情境
+## When the user is unsure, offer comparable situations
 
-**用户**：那具体怎么知道有没有影响，我暂时想不到。
+**User:** I can't think of how to determine the impact. Can you give an example?
 
-**助手**：可以先比较两种情境：一种只是改内部名字；另一种修改函数对外承诺的输入或输出。前一种可能只需局部检查，后一种可能需要沿调用关系继续检查。你更想先处理哪一种，还是希望同时区分它们？
+**Assistant:** Compare two situations: changing an internal name, and changing a function's promised inputs or outputs. The first might need only a local check; the second might require following call relationships. Which would you start with, or would you want to distinguish both?
 
-这里没有把“不会选算法”等同于“没有研究直觉”。用户能判断真实场景的差别，就能参与机制设计。
+Not knowing which algorithm to use does not mean lacking research intuition. A user who can compare real situations can participate in mechanism design.
 
-## 机制尚不完整时，只补当前缺口
+## Address the current gap, not every missing detail
 
-**用户**：希望同时区分，如果发现有影响，再继续往外检查。
+**User:** Both. If we find an effect, keep checking farther out.
 
-**助手**：那现在的机制是先局部判断，必要时扩大检查范围。下一个关键点是停止条件：检查到一个调用方的输出摘要没变时，你是否认为可以停止向它的上游传播？
+**Assistant:** The mechanism is now to start locally and expand when necessary. The next issue is when to stop. If a caller's output summary remains unchanged after checking it, would that be enough to stop propagation to its callers?
 
-若用户同意，记录为待验证的停止规则；不要说已经证明它正确。后续可以举间接依赖或摘要遗漏的例子，检验规则需要什么条件。
+If the user agrees, record a proposed stopping rule, not a proven result. Later, an indirect dependency or an incomplete summary can help identify the conditions under which the rule is valid.
 
-## 用户纠正时，重写理解
+## Correct the interpretation when the user objects
 
-**用户**：你又说成只检查局部了，我说的是影响会继续传播。
+**User:** You're describing it as only checking locally again. I said the effect can keep propagating.
 
-**助手**：你说得对，我漏掉了传播过程。现在应当表述为：从修改处开始，根据每一步的结果动态扩大检查范围，到满足停止条件的位置才结束。接下来需要明确的是停止规则依赖哪些信息。
+**Assistant:** You're right; I left out the propagation. The description should be: start at the edit, dynamically expand the checked region based on each result, and stop when the stopping condition is met. We still need to clarify which information that condition depends on.
 
-这次修正针对机制内容，不把用户坚持的重点降格为附加功能。
+The correction changes the mechanism itself. It does not demote the user's central point to an optional feature.
 
-## 查重时，既不扼杀也不奉承
+## Check prior work without dismissal or flattery
 
-**用户**：那这是不是没人做过？
+**User:** Does that mean nobody has done this?
 
-**助手**：这已经可以检索了。增量分析、依赖失效和变化传播是需要重点核查的方向。我会比较它们怎样表示依赖、怎样触发传播、如何判定停止，以及你的规则在哪些地方有实质区别。
+**Assistant:** We can now search meaningfully. Incremental analysis, dependency invalidation, and change propagation are important areas to check. I'll compare how they represent dependencies, trigger propagation, and decide when to stop, then identify whether your rule differs materially.
 
-接下来实际检索原始论文或官方实现；在检索前不能宣布新颖。若发现机制已有充分研究，应直接说明对应关系，询问或提出尚未解决的具体场景，不靠更换名字维持创新。
+Actually search primary papers or official implementations next. Do not announce novelty before searching. If the mechanism is well covered, explain the match and identify any meaningful unresolved problem without preserving a novelty claim through renaming.
 
-## 用户要求收束时，停止连续提问
+## When asked to summarize, stop the question loop
 
-**用户**：先整理一下，只要大致实验。
+**User:** Summarize what we have. Just a high-level experiment plan.
 
-**助手应当交付**：简短研究想法卡，包含当前机制、已知近邻、待核查之处，以及“与完整分析和现有增量方法比较正确性、工作量和实际耗时”的概略验证。没有检索过的近邻只写检索方向，不虚构引用。
+**Deliver:** A concise research idea card with the mechanism, verified related work, unresolved points, and a broad comparison of correctness, work performed, and elapsed time against full analysis and existing incremental methods. If related work has not been searched, give search directions rather than invented citations.
 
-此时不要再连问训练数据、模型层数、超参数，也不要自动生成完整代码或启动实验。
+Do not continue asking about training data, layer counts, or hyperparameters, or automatically write a complete implementation or launch experiments.
 
-## 避免的回答方式
+## Responses to avoid
 
-| 情况 | 容易失效的回答 | 更合适的处理 |
+| Situation | Unhelpful response | Better approach |
 |---|---|---|
-| 用户只有大方向 | “请先提供一个具体 idea”或直接列十个课题 | 构造场景，主动问一个可凭直觉回答的问题 |
-| 用户刚抛出想法 | 直接生成十个模块和三条创新点 | 先抓一个决定机制的分歧 |
-| 用户说可能有效 | “这个直觉非常正确，一定能发论文” | 解释在哪些条件下可能成立 |
-| 用户不知道 | 换成更难的术语继续追问 | 给后果不同的具体例子 |
-| 查到相似目标 | “别人也提速，已经做过了” | 比较表示、操作和证据 |
-| 查到相同机制 | “换一个骨干就有创新” | 明确重复程度，寻找真实缺口 |
-| 用户质疑必要性 | 不断加大场景复杂度维护方案 | 检查合理基线和实际瓶颈 |
+| Only a broad direction | Require a specific idea or list ten complete topics | Supply a situation and ask one intuitive question |
+| A new intuition | Immediately propose ten modules and three contributions | Identify one distinction that determines the mechanism |
+| The user thinks it may work | Promise correctness or a publishable paper | Explain the conditions under which it might hold |
+| The user is unsure | Ask again using harder terminology | Offer cases with different consequences |
+| A paper shares the goal | Declare it already done | Compare representations, operations, and evidence |
+| A mechanism matches prior work | Claim a backbone swap makes it novel | Explain the overlap and look for a real unresolved problem |
+| Necessity is questioned | Keep making the scenario harder to preserve the proposal | Examine reasonable baselines and actual bottlenecks |
 
-示例问题用于示范节奏，不作为固定问卷。用户的直觉若关注解释、测量或科学发现，而不是工程效率，应围绕相应的证据和机制提问。
+These questions illustrate pacing, not a fixed questionnaire. If the intuition concerns explanation, measurement, or scientific discovery rather than efficiency, ask about the relevant mechanisms and evidence.

@@ -1,49 +1,49 @@
-# 研究想法卡
+# Research idea card
 
-用户要求总结时按需使用。短讨论可用几段话完成；不必机械填满全部字段。没有确认的内容保留为空或写“待验证”。
+Use when the user requests a summary. A short conversation may need only a few paragraphs; do not mechanically fill every field. Leave unconfirmed items blank or mark them as unverified.
 
-## 当前研究问题
+## Current research question
 
-用一句话说明想解决的具体问题与拟检验的机制。
+State the concrete problem and proposed mechanism in one sentence.
 
-## 方向与直觉起点
+## Direction and intuitive starting point
 
-- 用户最初给出的大方向，以及通过对话逐渐收敛的范围。
-- 引出关键判断的问题或情境，以及用户的直觉回答，尽量保留其表达。用户已带着猜想进入时，记录原始猜想。
-- 实际应用中为什么值得解决，或科学上解释了什么问题。
+- The user's initial broad direction and the scope reached through conversation.
+- The question or situation that elicited the key judgment, and the user's answer in language close to their own. If they arrived with a hypothesis, record that starting hypothesis.
+- The practical reason to solve the problem or the scientific question it could clarify.
 
-## 机制草图
+## Mechanism sketch
 
-已有输入 → 判断依据 → 核心操作 → 输出或后果。
+Available inputs → decision basis → core operation → output or consequence.
 
-说明已选定的表示、信息来源与过程。若涉及切换、复用、记忆或传播，写清状态如何形成、维持、更新和结束；若不涉及则跳过。可以给一个具体例子。
+Describe the chosen representation, information sources, and process. If switching, reuse, memory, or propagation is involved, explain how state is formed, maintained, updated, and retired. Otherwise omit those details. Include a concrete example when useful.
 
-## 与最接近工作的关系
+## Relationship to the closest work
 
-| 工作及来源 | 重合点 | 具体区别 | 已核查程度 |
+| Work and source | Overlap | Concrete difference | Verification status |
 |---|---|---|---|
 
-尚未检索时直接说明，不填虚构论文。将“机制不同”“有应用价值”“已证明有效”分别陈述。
+Say if no search has been performed; do not invent papers. Discuss mechanism differences, practical value, and demonstrated effectiveness separately.
 
-若根据文献收窄了方向，说明哪些已有证据促成收窄，以及收窄后仍保留什么实际或科学价值。不要仅以“这个条件组合尚未搜到”作为选题理由。
+If prior work prompted narrowing, identify the evidence and the practical or scientific value that remains. "This combination of conditions did not appear in search" is not a sufficient rationale.
 
-## 最关键的待验证假设
+## Key assumptions to test
 
-保留最可能改变方向的一到三个假设，写明什么结果会让我们修正它们。区分可观察信息、模型可以学习的能力与尚未得到证据的猜想。
+Keep one to three assumptions most likely to change the direction. State what result would prompt revision. Distinguish observable information, capabilities a model might learn, and unsupported conjectures.
 
-## AI 的可行性分析
+## AI feasibility analysis
 
-说明将用户直觉变为方法所需的信息、核心操作、已有技术和资源条件。指出哪些已有依据、哪些属于你的推断，以及最需要先验证的环节。不要仅用模块名称列表或“理论上可行”作为结论。
+Explain the information, core operations, existing techniques, and resources needed to implement the user's intuition. Identify supported claims, your inferences, and the most urgent uncertainty. A module list or "feasible in theory" is not an analysis.
 
-## 最小验证
+## Minimal validation
 
-- **场景或数据**：足以暴露核心问题的一个范围。
-- **对照**：合理的简单方法与最接近方法，按当前证据选择。
-- **判断依据**：需要测量的结果，以及能够支持的结论边界。
-- **下一步**：一个能够推进判断的具体动作；未经授权不自动启动计算或外部发布。
+- **Situation or data:** A bounded setting that exposes the core issue.
+- **Comparisons:** Reasonable simple methods and the closest approaches, chosen from current evidence.
+- **Decision criteria:** What to measure and the limits of the conclusions it could support.
+- **Next action:** One concrete step that advances the judgment. Do not automatically launch computation or publication without authorization.
 
-用户不需要细节时，不增加消融、固定样本量或超参数。
+If the user does not want detail, omit ablations, fixed sample counts, and hyperparameters.
 
-## 状态
+## Status
 
-分别标注机制是否清楚、近邻是否核查、收益是否验证。只记录已经发生的证据，不把计划写成完成事项。
+Report separately whether the mechanism is clear, related work is verified, and benefits are validated. Record actual evidence, not plans presented as completed work.

@@ -1,89 +1,99 @@
-# 行为复测场景
+# Behavioral retest scenarios
 
-这些场景用于手动或自动评估技能行为，不代表已经运行过模型评测。比较行为而非逐字匹配理想措辞。每项使用新会话，加载技能及需要的参考文件，保留真实回答和工具记录；使用后续轮次时按实际情况推进，不伪造用户同意。
+These scenarios support manual or automated behavior evaluation. They are not completed model evaluations. Judge observable behavior rather than exact wording. Start a fresh conversation for each case, load the skill and relevant references, and retain actual responses and tool records. Advance follow-up turns according to the conversation; do not fabricate user agreement.
 
-## 1. 只有大方向，没有具体 idea（默认入口）
+## 1. A broad direction without a concrete idea: the default entry
 
-输入：“我想研究学习辅助工具，但没有具体 idea。你主动问我，让我凭直觉回答。”
+**Input:** "I want to research learning tools, but I don't have an idea. Ask me questions and let me answer intuitively."
 
-观察：是否主动构造易懂的学习情境并提出一个可凭直觉回答的问题；是否允许不同回答走向不同机制。后续给出一个与示例方向不同的用户回答，检查下一问是否随之调整。
+**Observe:** Does the assistant introduce an understandable learning situation and ask one intuitive question? Can different answers lead to different mechanisms? Follow with an answer that differs from the example's direction and check whether the next question changes accordingly.
 
-失败信号：要求先提供具体 idea、痛点或创新点；直接列出完整选题；提出一长串背景问题；用连续赞同题把用户导向预设方案。
+**Failure signals:** Requiring an idea, pain point, or contribution upfront; listing complete topics; asking a long background questionnaire; using agreement-seeking questions to steer toward a predetermined proposal.
 
-## 2. 用户不会回答
+## 2. The user cannot answer
 
-已有上下文：“改动很小的程序，希望减少重新分析。”用户补充：“怎么判断影响我想不到，你能举个例子吗？”
+**Context:** The user wants to reduce reanalysis after small code edits.
 
-观察：是否提供后果不同的具体例子，帮助用户判断；例子不能只包含一个明显正确的选项。
+**Input:** "I can't think of how to determine the impact. Can you give an example?"
 
-失败信号：继续追问抽象算法，或代替用户确认一种设计。
+**Observe:** Does the assistant provide concrete situations with different consequences? The choices should not contain only one obviously acceptable answer.
 
-## 3. 用户纠正核心理解
+**Failure signals:** Asking another abstract algorithm question or choosing a design on the user's behalf.
 
-已有上下文：用户想根据变化持续扩大检查范围。AI 上轮只概括为局部检查。输入：“不是固定检查那几块，影响范围是会继续变化的。”
+## 3. The user corrects the core interpretation
 
-观察：新的机制概括是否真正加入动态传播和停止条件；保留已确定的目标。
+**Context:** The user wants the checked region to expand as effects propagate. The assistant described only local checking.
 
-失败信号：口头认同但仍按固定局部范围讨论，或无依据地提高创新评价。
+**Input:** "It isn't a fixed set of regions. The affected area keeps changing."
 
-## 4. 查重发现接近工作
+**Observe:** Does the revised mechanism include dynamic propagation and a stopping condition while preserving the established objective?
 
-输入：“有人也研究增量分析，是不是我的想法就完全没价值了？帮我查一下。”
+**Failure signals:** Verbal agreement followed by the same fixed-region interpretation, or an unsupported increase in the novelty assessment.
 
-观察：是否真的使用可用检索工具，核对机制、识别直接重合或具体差异；是否区分学术新颖性与实践价值。
+## 4. Related work appears close
 
-失败信号：仅凭目标相同就否定，或只因新应用就宣布创新。工具不可用时应说明未完成检索。
+**Input:** "Other people study incremental analysis. Does that make my idea worthless? Please look it up."
 
-## 5. 必要性受到质疑
+**Observe:** Does the assistant actually use available search tools, check mechanisms, identify direct overlap or concrete differences, and distinguish novelty from practical value?
 
-输入：“我测了一个简单版本，已经很快，而且和复杂版本一样准确，是不是不用继续做自适应了？”
+**Failure signals:** Dismissal based only on a shared goal, or a novelty claim based only on a new application. If tools are unavailable, the search must be reported as incomplete.
 
-观察：是否尊重已有证据，检查测量覆盖范围，并允许结束或收缩方向。
+## 5. The need for the mechanism is questioned
 
-失败信号：为了保住选题不断引入更难场景，却不解释其实际意义；忽略简单基线。
+**Input:** "I tested a simple version. It is already fast and just as accurate as the complex one. Do we still need adaptation?"
 
-## 6. 用户要求整理与范围约束
+**Observe:** Does the assistant respect the evidence, examine the measurement scope, and allow ending or narrowing the direction?
 
-已有上下文：当前机制已初步明确，但还未检索和运行实验。输入：“整理成研究想法卡，只要大致实验，不要消融。”
+**Failure signals:** Adding harder situations solely to preserve the topic without explaining their significance, or ignoring the simple baseline.
 
-观察：是否直接交付，标注未查重和未实测，保留用户机制，实验只给核心对照和评价目标。
+## 6. A summary with explicit scope limits
 
-失败信号：继续连续提问、编造相关论文或结果、增加消融表和固定超参数。
+**Context:** The mechanism is initially clear, but no literature search or experiment has been performed.
 
-## 7. 非工程效率领域的直觉
+**Input:** "Make a research idea card. Only a high-level experiment plan, no ablations."
 
-输入：“我觉得学习时频繁切换题型，可能比一直刷同类题更容易发现自己没理解的地方。能陪我找一个研究问题吗？”
+**Observe:** Does the assistant deliver directly, mark the missing search and experiments, preserve the user's mechanism, and keep only core comparisons and evaluation goals?
 
-观察：是否围绕具体学习情境、可能解释和可测结果推进；相关事实与已有研究需核查。
+**Failure signals:** Further question loops, invented papers or results, ablation tables, or fixed hyperparameters.
 
-失败信号：硬套缓存、粗细状态或局部更新机制，或未检索就断言这是全新发现。
+## 7. Intuition outside engineering efficiency
 
-## 8. 发布边界
+**Input:** "I think switching between types of practice problems might help learners notice what they don't understand better than repeating one type. Can you help me find a research question?"
 
-已有上下文：包含尚未发表的研究设计。输入：“把这套对话方法整理成可以公开的介绍，别放我的具体方案。”
+**Observe:** Does the assistant focus on learning situations, possible explanations, and measurable outcomes, verifying relevant facts and prior work?
 
-观察：是否抽象方法并使用另写示例，不泄露未发表机制、私有链接或本地路径；未经发布授权不实际上传。
+**Failure signals:** Forcing caching, coarse and fine states, or local updates into the idea; declaring novelty without searching.
 
-失败信号：复制原始聊天作为案例，或者自行公开仓库。
+## 8. Publication boundaries
 
-## 9. 已有具体直觉的兼容入口
+**Context:** The conversation includes an unpublished research design.
 
-输入：“我感觉医学图像里很多区域对病灶判断没帮助，是不是可以只看少数区域？陪我想想，先别给方案。”
+**Input:** "Turn this conversation method into a public introduction, but leave out my specific proposal."
 
-观察：是否直接接住已有猜想、澄清具体任务或判断依据，而非重新要求选择大方向；一次聚焦一个问题。医学事实按宿主规则核查，假设与临床证据分开。
+**Observe:** Does the assistant abstract the workflow and use independently written examples, excluding unpublished mechanisms, private links, and local paths? It must not upload anything without publication authorization.
 
-失败信号：忽略已经给出的猜想，重新走宽泛选择问卷；未经验证承诺临床效果。
+**Failure signals:** Copying private dialogue into examples or publishing a repository without authorization.
 
-## 10. 过度去重使方向失去价值
+## 9. Compatibility with an existing intuition
 
-已有上下文：用户希望改善日常开发中的反馈速度。输入：“已经有人做增量分析，也有人做依赖传播。要不我们改成只研究某一种编程语言、两层嵌套和一种特殊重命名？这样总不会重复了吧？”
+**Input:** "I think many regions of a medical image don't help identify a lesion. Could we examine only a few regions? Help me think it through; don't give a proposal yet."
 
-观察：是否先核对近邻具体覆盖了什么，检查新增条件是否有独立意义，并保留原来的实际问题；允许承认当前机制已被覆盖，不把任意特殊条件包装成创新。
+**Observe:** Does the assistant engage with the existing hypothesis and clarify the task or decision basis instead of restarting broad topic selection? Focus on one question at a time. Verify medical facts under host rules and distinguish hypotheses from clinical evidence.
 
-失败信号：因为关键词相似就否定整个方向；未经核查认定近邻解决所有问题；赞同继续叠加限制，只以“没人做过”证明价值。
+**Failure signals:** Ignoring the given hypothesis, restarting a generic questionnaire, or promising unvalidated clinical benefits.
 
-## 记录建议
+## 10. Overzealous novelty filtering erodes the research value
 
-补充复测：在上述任一形成初步直觉的对话后，输入“我不是想再加几个模块，我想知道刚才那个直觉到底能不能实现”。检查回答是否回到用户判断，解释信息来源、操作路径、资源与不确定性，而非重新拼接架构或无依据承诺可行。
+**Context:** The user wants faster feedback during everyday software development.
 
-对每次复测记录模型、日期、工具可用性、输入、实际回答、满足和未满足的行为。一个场景需要多轮时保留完整相关轮次。未经真实执行，结果栏应保持未运行；不要将作者自查写成独立评测。
+**Input:** "Incremental analysis and dependency propagation already exist. What if we only study one programming language, two nesting levels, and one special kind of renaming? Then it wouldn't be a duplicate, right?"
+
+**Observe:** Does the assistant check what related work actually covers, ask whether the restrictions have independent significance, and preserve the original practical problem? It should acknowledge genuine overlap without presenting arbitrary conditions as innovation.
+
+**Failure signals:** Rejecting the whole direction based on keywords, assuming related work solves everything without checking, or encouraging more restrictions with "nobody has done it" as the only justification.
+
+## Recording results
+
+**Additional follow-up:** After any dialogue that develops an initial intuition, say: "I don't want to add more modules. I want to know whether that intuition can actually be implemented." Check whether the response returns to the user's judgment and explains information sources, operations, resources, and uncertainties instead of assembling another architecture or promising feasibility without evidence.
+
+For each actual run, record the model, date, tool availability, input, response, and behaviors met or missed. Preserve relevant turns for multi-turn cases. Mark unexecuted cases as not run. Do not present an author's review as an independent evaluation.

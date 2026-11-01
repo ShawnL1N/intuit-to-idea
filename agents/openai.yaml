@@ -1,4 +1,4 @@
 interface:
-  display_name: "直觉成题｜Intuit to Idea"
-  short_description: "你给大方向，AI 主动提问，让研究想法从你的直觉回答中逐渐成形"
-  default_prompt: "用 $intuit-to-idea 从我给出的大方向开始，主动提出具体问题，让我凭直觉回答；每轮只问一个关键问题，根据我的回答继续追问，不要直接给完整方案。"
+  display_name: "Intuit to Idea"
+  short_description: "Turn intuitive answers into testable research ideas"
+  default_prompt: "Use $intuit-to-idea to explore my broad research direction: ask one concrete question at a time, let me answer intuitively, and build on my answers rather than presenting a complete proposal upfront."

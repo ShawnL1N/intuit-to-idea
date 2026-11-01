@@ -96,7 +96,7 @@ Check related work for the mechanism we've developed. Focus on what the methods 
 Summarize this as a research idea card. Keep the experiment plan high-level.
 ```
 
-In a chat tool without skill discovery, provide `SKILL.md` as conversational guidance and attach the relevant reference files when needed. Results depend on the host model and available tools. The skill instructions and supporting materials are currently written in Chinese; the skill tells the model to follow your preferred conversation language.
+In a chat tool without skill discovery, provide `SKILL.md` as conversational guidance and attach the relevant reference files when needed. Results depend on the host model and available tools. The skill instructions, supporting guides, examples, evaluation scenarios, and interface metadata are written in English. The skill follows your preferred conversation language, including Chinese. Both English and Chinese READMEs are available above.
 
 ## Installation
 
